@@ -10,7 +10,7 @@ namespace minmd
 	class main_label : public Gtk::Label
 	{
 		public:
-			main_label(const std::string& markup, unsigned int indent, const std::string& css_class);
+			main_label(std::string_view markup, unsigned int indent, std::string_view css_class);
 			main_label(const main_label& other) = delete;
 
 			const std::string& get_markup() const;

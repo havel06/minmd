@@ -34,8 +34,19 @@ int main(int argc, char *argv[])
 	}
 	config_path = config_dir + "minmd.conf";
 
+	std::string config_source;
 	//vytvoreni config objektu
-	const minmd::config current_config(minmd::parse_file(config_path));
+	try	
+	{
+		config_source = minmd::parse_file(config_path);
+	}
+	catch (std::runtime_error& e)
+	{
+		std::cerr << e.what() << "\n";
+		std::cerr << "Error occured when processing the configuration file. Default configuration will be used." << std::endl;
+	};
+
+	const minmd::config current_config(config_source);
 	minmd::main_label::set_config(current_config);
 
 	//vytvoreni aplikace ve ktere pobezi program
@@ -45,11 +56,11 @@ int main(int argc, char *argv[])
 	//vytvoreni okna
 	main_window window(current_config);
 
-
 	//vytvoreni ramu pro text
 	//main_grid grid(current_config);
 	Gtk::VBox grid;
 	grid.set_spacing(current_config.get_value_int("row_spacing"));
+	grid.set_halign(Gtk::ALIGN_CENTER);
 	grid.get_style_context()->add_class("page");
 
 	window.scrolled_window.add(grid);
@@ -70,25 +81,25 @@ int main(int argc, char *argv[])
 	else
 	{
 		//nacteni ze souboru
-		input_text = minmd::parse_file(argv[1]);
+		try
+		{
+			input_text = minmd::parse_file(argv[1]);
+		}
+		catch (std::runtime_error& e)
+		{
+			std::cerr << e.what() << std::endl;
+			abort();
+		};
 	}
 
-	std::vector<std::unique_ptr<Gtk::Widget>> widgets = minmd::parse(input_text);
+	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
+	main_parser.parse(input_text);
+	auto& widgets = main_parser.get_widgets();
 
 	//pridani labelu do gridu
-	/*
-	if (!widgets.empty())
-	{
-		grid.add(*widgets[0]);
-		for (auto i = widgets.begin() + 1; i != widgets.end(); i++)
-		{
-			grid.attach_next_to(**i, **(i - 1), Gtk::POS_BOTTOM);
-		}
-	}
-	*/
 	for (auto& w : widgets)
 	{
-		grid.pack_end(*w);
+		grid.pack_start(*w, Gtk::PACK_SHRINK);
 	}
 
 	//window.signal_size_allocate().connect(sigc::bind(sigc::ptr_fun(resize_images), widgets));

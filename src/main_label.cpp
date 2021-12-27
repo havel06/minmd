@@ -1,18 +1,18 @@
 #include "main_label.h"
 
-minmd::main_label::main_label(const std::string& markup, unsigned int indent, const std::string& css_class) : markup_src(markup)
+minmd::main_label::main_label(std::string_view markup, unsigned int indent, std::string_view css_class) : markup_src(markup)
 {
 	if (minmd::main_label::m_config == nullptr)
 	{
 		throw std::logic_error("The config object for main_label hasn't been set.");
 	}
-	this->set_markup(markup);
+	this->set_markup({markup.data(), markup.size()});
 	this->set_selectable(minmd::main_label::m_config->get_value_int("text_selectable") != 0);
 	this->set_xalign(0.0);
 	this->set_yalign(0.0);
 	this->set_line_wrap(true);
 	this->set_max_width_chars(m_config->get_value_int("max_line_width"));
-	this->get_style_context()->add_class(css_class);
+	this->get_style_context()->add_class({css_class.data(), css_class.size()});
 	this->set_justify(Gtk::JUSTIFY_FILL);;
 
 	if (indent != 0)

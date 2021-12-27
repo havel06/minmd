@@ -2,20 +2,17 @@
 
 std::string minmd::parse_file(const std::string& file_path)
 {
-
 	//zpracovavany soubor
 	std::ifstream input_file(file_path);
 
 	//test souboru
 	if (!input_file.good())
 	{
-		std::cerr << "Can't open file."	<< std::endl;
+		throw std::runtime_error("Error occured when trying to read from file '" + file_path + "'.");
 		exit(EXIT_FAILURE);
 	}
 
-
-	std::string result = "\n"; //vektor obsahujici radky
-
+	std::string result{}; //vektor obsahujici radky
 	std::string line; //aktualni radek
 
 	//cykleni skrze radky
@@ -30,36 +27,3 @@ std::string minmd::parse_file(const std::string& file_path)
 
 	return result;
 }
-
-/*
-//ulozeni souboru ze stringu
-void save_file(std::string contents, std::string filename)
-{
-	std::ofstream file(filename);
-	if (!file.good())
-	{
-		//hodit error
-	}
-
-	file << contents;
-
-	file.close();
-}
-
-//ulozeni souboru z vektoru
-void save_file(std::vector<std::string> contents, std::string filename)
-{
-	std::ofstream file(filename);
-	if (!file.good())
-	{
-		//hodit error
-	}
-
-	for (auto s : contents)
-	{
-		file << s;
-	}
-
-	file.close();
-}
-*/
