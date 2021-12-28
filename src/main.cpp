@@ -2,7 +2,6 @@
 #include "file_handling.h"
 #include "image_widget.h"
 #include "main_scrolled_window.h"
-#include "main_grid.h"
 #include "main_label.h"
 #include "main_window.h"
 #include "parse.h"
@@ -14,9 +13,6 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
-
-//void resize_images(Gtk::Allocation alloc, std::vector<Gtk::Widget*>& widgets);
-void resize_images(const std::vector<std::unique_ptr<Gtk::Widget>> * widgets, const minmd::config * conf);
 
 int main(int argc, char *argv[])
 {
@@ -57,8 +53,8 @@ int main(int argc, char *argv[])
 	main_window window(current_config);
 
 	//vytvoreni ramu pro text
-	//main_grid grid(current_config);
 	Gtk::VBox grid;
+	grid.set_size_request(current_config.get_value_int("window_width"));
 	grid.set_spacing(current_config.get_value_int("row_spacing"));
 	grid.set_halign(Gtk::ALIGN_CENTER);
 	grid.get_style_context()->add_class("page");
@@ -95,6 +91,7 @@ int main(int argc, char *argv[])
 	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
 	main_parser.parse(input_text);
 	auto& widgets = main_parser.get_widgets();
+	auto& images = main_parser.get_images();
 
 	//pridani labelu do gridu
 	for (auto& w : widgets)
@@ -102,8 +99,16 @@ int main(int argc, char *argv[])
 		grid.pack_start(*w, Gtk::PACK_SHRINK);
 	}
 
-	//window.signal_size_allocate().connect(sigc::bind(sigc::ptr_fun(resize_images), widgets));
-	window.signal_realize().connect(sigc::bind(sigc::ptr_fun(resize_images), &widgets, &current_config));
+	auto resize_images = [&images, &current_config]()
+	{
+		int desired_width = current_config.get_value_int("window_width");
+		for (auto* i : images)	
+		{
+			i->resize_to_fit(desired_width);
+		}
+	};
+
+	window.signal_realize().connect(resize_images);
 
 	//zobrazeni vsech prvku v okne
 	window.show_all_children();
@@ -124,23 +129,4 @@ int main(int argc, char *argv[])
 
 	//spusteni programu
 	return main_application->run(window);
-}
-
-void resize_images(const std::vector<std::unique_ptr<Gtk::Widget>>* widgets, const minmd::config * conf)
-{
-	for (auto& w : *widgets)
-	{
-		auto* image = dynamic_cast<image_widget*>(w.get());
-		if (image == nullptr)
-		{
-			continue;
-		}
-
-		int window_width = conf->get_value_int("window_width");
-		if (image->get_allocated_width() > window_width)
-		{
-			auto new_pixbuf = Gdk::Pixbuf::create_from_file(image->get_path(), window_width, -1);
-			image->set(new_pixbuf);
-		}
-	}
 }

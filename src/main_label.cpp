@@ -1,4 +1,5 @@
 #include "main_label.h"
+#include <iostream>
 
 minmd::main_label::main_label(std::string_view markup, unsigned int indent, std::string_view css_class) : markup_src(markup)
 {
@@ -11,7 +12,8 @@ minmd::main_label::main_label(std::string_view markup, unsigned int indent, std:
 	this->set_xalign(0.0);
 	this->set_yalign(0.0);
 	this->set_line_wrap(true);
-	this->set_max_width_chars(m_config->get_value_int("max_line_width"));
+	this->set_hexpand(false);
+	this->set_max_width_chars(0);
 	this->get_style_context()->add_class({css_class.data(), css_class.size()});
 	this->set_justify(Gtk::JUSTIFY_FILL);;
 
@@ -26,11 +28,6 @@ const minmd::config* minmd::main_label::m_config = nullptr;
 void minmd::main_label::set_config(const minmd::config& t_config)
 {
 	main_label::m_config = &t_config;
-}
-
-const std::string& minmd::main_label::get_markup() const
-{
-	return this->markup_src;
 }
 
 const minmd::config& minmd::main_label::get_config() const

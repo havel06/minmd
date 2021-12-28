@@ -1,7 +1,6 @@
 #pragma once
 
 #include "config.h"
-#include "main_grid.h"
 #include "main_scrolled_window.h"
 #include <gtkmm-3.0/gtkmm.h>
 

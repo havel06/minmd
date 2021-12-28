@@ -1,5 +1,4 @@
 #include "parse.h"
-#include "image_widget.h"
 #include "main_label.h"
 #include <algorithm>
 #include <iostream>
@@ -10,6 +9,11 @@ namespace minmd
 	const std::vector<std::unique_ptr<Gtk::Widget>>& parser::get_widgets() const
 	{
 		return this->m_widgets;
+	}
+
+	const std::vector<minmd::image_widget*>& parser::get_images() const
+	{
+		return this->m_images;
 	}
 
 	void parser::on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail)
@@ -236,6 +240,7 @@ namespace minmd
 	void parser::push_back_image(std::string_view source)
 	{
 		auto widget = std::make_unique<image_widget>(std::string(source));
+		this->m_images.push_back(widget.get());
 		this->m_widgets.push_back(std::move(widget));
 	}
 } //namespace minmd
