@@ -1,7 +1,5 @@
 #include "config.h"
 #include "file_handling.h"
-#include "image_widget.h"
-#include "main_scrolled_window.h"
 #include "main_label.h"
 #include "main_window.h"
 #include "parse.h"
@@ -11,7 +9,6 @@
 #include <iostream>
 #include <memory>
 #include <string>
-#include <unordered_set>
 #include <vector>
 
 int main(int argc, char *argv[])
@@ -52,15 +49,6 @@ int main(int argc, char *argv[])
 	//vytvoreni okna
 	main_window window(current_config);
 
-	//vytvoreni ramu pro text
-	Gtk::VBox grid;
-	grid.set_size_request(current_config.get_value_int("window_width"));
-	grid.set_spacing(current_config.get_value_int("row_spacing"));
-	grid.set_halign(Gtk::ALIGN_CENTER);
-	grid.get_style_context()->add_class("page");
-
-	window.scrolled_window.add(grid);
-
 	//nacteni vstupniho textu + vytvoreni widgetu
 	std::string input_text{};
 
@@ -96,7 +84,7 @@ int main(int argc, char *argv[])
 	//pridani labelu do gridu
 	for (auto& w : widgets)
 	{
-		grid.pack_start(*w, Gtk::PACK_SHRINK);
+		window.m_inner_vbox.pack_start(*w, Gtk::PACK_SHRINK);
 	}
 
 	auto resize_images = [&images, &current_config]()
