@@ -1,8 +1,9 @@
 #pragma once
 
+#include "../md4cpp/include/md4cpp.hpp"
 #include "config.h"
 #include "image_widget.h"
-#include "../md4cpp/include/md4cpp.hpp"
+
 #include <gtkmm-3.0/gtkmm.h>
 #include <memory>
 #include <md4c.h>
@@ -15,8 +16,8 @@ namespace minmd
 	{
 	public:
 		using md4cpp::parser::parser;
-		const std::vector<std::unique_ptr<Gtk::Widget>>& get_widgets() const;
-		const std::vector<minmd::image_widget*>& get_images() const;
+		[[nodiscard]] const std::vector<std::unique_ptr<Gtk::Widget>>& get_widgets() const;
+		[[nodiscard]] const std::vector<minmd::image_widget*>& get_images() const;
 	private:
 		void on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override;
 		void on_leave_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override;

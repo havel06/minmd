@@ -17,7 +17,7 @@ namespace minmd
 	{
 		if (this->get_allocated_width() > t_width)
 		{
-			auto new_pixbuf = Gdk::Pixbuf::create_from_file(this->get_path(), t_width, -1, true);
+			auto new_pixbuf = Gdk::Pixbuf::create_from_file(this->get_path(), static_cast<int>(t_width), -1, true);
 			this->set(new_pixbuf);
 		}
 	}

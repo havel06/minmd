@@ -184,7 +184,7 @@ namespace minmd
 		}
 	}
 
-	void parser::on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant detail)
+	void parser::on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant /*detail*/)
 	{
 		switch (type)
 		{
@@ -219,16 +219,14 @@ namespace minmd
 			this->m_buffer += "\n";
 			return;
 		}
+
+		std::string text_str(text.data(), text.size());
 		if (!this->m_is_verbatim)
 		{
-			std::string text_edited(text);
-			std::replace(text_edited.begin(), text_edited.end(), '\n', ' ');
-			this->m_buffer += Glib::Markup::escape_text(text_edited);
+			std::replace(text_str.begin(), text_str.end(), '\n', ' ');
 		}
-		else
-		{
-			this->m_buffer += Glib::Markup::escape_text({text.data(), text.size()});
-		}
+		Glib::ustring text_escaped = Glib::Markup::escape_text(std::move(text_str));
+		this->m_buffer += std::move(text_escaped);
 	}
 
 	void parser::push_back_label(std::string_view contents, unsigned int nesting_level, std::string_view css_class)

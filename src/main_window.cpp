@@ -9,7 +9,6 @@ main_window::main_window(const minmd::config& conf) : m_outer_vbox(Gtk::ORIENTAT
 	this->set_size_request(this->current_config.get_value_int("window_width"),
 	                       this->current_config.get_value_int("window_height"));
 	this->set_border_width(0);
-	this->set_resizable(false);
 
 	this->add(m_outer_vbox);
 	m_outer_vbox.pack_start(m_scrolled_window);

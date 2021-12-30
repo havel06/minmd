@@ -76,13 +76,15 @@ int main(int argc, char *argv[])
 		};
 	}
 
+
 	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
 	main_parser.parse(input_text);
-	auto& widgets = main_parser.get_widgets();
-	auto& images = main_parser.get_images();
+	const auto& widgets = main_parser.get_widgets();
+	const auto& images = main_parser.get_images();
+
 
 	//pridani labelu do gridu
-	for (auto& w : widgets)
+	for (const auto& w : widgets)
 	{
 		window.m_inner_vbox.pack_start(*w, Gtk::PACK_SHRINK);
 	}

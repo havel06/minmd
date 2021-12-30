@@ -7,7 +7,7 @@ minmd::main_label::main_label(std::string_view markup, unsigned int indent, std:
 	{
 		throw std::logic_error("The config object for main_label hasn't been set.");
 	}
-	this->set_markup({markup.data(), markup.size()});
+	this->set_markup(std::string(markup));
 	this->set_selectable(minmd::main_label::m_config->get_value_int("text_selectable") != 0);
 	this->set_xalign(0.0);
 	this->set_yalign(0.0);
@@ -19,7 +19,7 @@ minmd::main_label::main_label(std::string_view markup, unsigned int indent, std:
 
 	if (indent != 0)
 	{
-		this->set_margin_start(indent * minmd::main_label::m_config->get_value_int("indent_size"));
+		this->set_margin_start(static_cast<int>(indent) * minmd::main_label::m_config->get_value_int("indent_size"));
 	}
 }
 
@@ -32,5 +32,5 @@ void minmd::main_label::set_config(const minmd::config& t_config)
 
 const minmd::config& minmd::main_label::get_config() const
 {
-	return *this->m_config;
+	return *minmd::main_label::m_config;
 }

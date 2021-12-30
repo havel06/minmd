@@ -9,4 +9,4 @@ namespace minmd
 		this->set_halign(Gtk::ALIGN_CENTER);
 		this->get_style_context()->add_class("page");
 	}
-}
+} //namespace minmd
