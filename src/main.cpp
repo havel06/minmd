@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 	auto main_application = Gtk::Application::create(fake_argc, argv, "minmd.main");
 
 	//vytvoreni okna
-	main_window window(current_config);
+	minmd::main_window window(current_config);
 
 	//nacteni vstupniho textu + vytvoreni widgetu
 	std::string input_text{};
@@ -82,12 +82,7 @@ int main(int argc, char *argv[])
 	const auto& widgets = main_parser.get_widgets();
 	const auto& images = main_parser.get_images();
 
-
-	//pridani labelu do gridu
-	for (const auto& w : widgets)
-	{
-		window.m_inner_vbox.pack_start(*w, Gtk::PACK_SHRINK);
-	}
+	window.display_widgets(widgets);
 
 	auto resize_images = [&images, &current_config]()
 	{
@@ -97,11 +92,8 @@ int main(int argc, char *argv[])
 			i->resize_to_fit(desired_width);
 		}
 	};
-
 	window.signal_realize().connect(resize_images);
 
-	//zobrazeni vsech prvku v okne
-	window.show_all_children();
 
 	//css
 	auto css_provider = Gtk::CssProvider::create();
