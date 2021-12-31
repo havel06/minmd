@@ -108,6 +108,7 @@ namespace minmd
 
 			case MD_BLOCK_CODE:
 				this->m_is_verbatim = false;
+				m_buffer.pop_back(); // remove newline character from end of buffer
 				this->push_back_label(this->m_buffer, 0, "code");
 				this->m_buffer.clear();
 				return;
