@@ -22,7 +22,6 @@ namespace minmd
 	private:
 		std::unordered_map<std::string, std::string> config_values = {
 			{"row_spacing", "20"},
-			{"max_line_width", "-1"},
 			{"window_width", "800"},
 			{"window_height", "600"},
 			{"indent_size", "20"},
