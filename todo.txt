@@ -1,0 +1,35 @@
+# TODO
+
+## finální refactor
+
+- komplet refaktor main() -> vyčistit (clean code only!!) (pravděpodobně přemístit část do části "gui")
+- opravit namespace (pokud najdu chybu)
+- cisty clang-tidy
+
+## post-production
+
+- readmeeeee
+- skript pro instalaci configu + theme
+- instalačka (skript pro build) (viz meson)
+- návod
+- doxygen 
+- přepis komentů v .cpp souborech do angličtiny (souvisí s předchozím)
+- manpage
+- mignót to na github (.gitignore)
+- zapakážovat to
+- rozšířit to všude možně (dát o sobě vědět)
+
+## Funkce přidané později
+
+- nastavitelný vzhled inline code (theme) - pomocí textview (pokud to půjde)
+- file watcher
+- tasky
+- timeout při prázdným stdin (aby to neběželo donekonečna)
+- odkazy uvnitř souboru (na nadpisy, sekce)
+- separator (asi nepujde)
+- vycentrovaný text pod obrázkem
+- víc obrázků vedle sebe
+- matematika (maybe)
+- tabulky
+- konfigurovatelné klávesové zkratky
+- syntax highlighting
