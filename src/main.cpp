@@ -76,7 +76,6 @@ int main(int argc, char *argv[])
 		};
 	}
 
-
 	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
 	main_parser.parse(input_text);
 	const auto& widgets = main_parser.get_widgets();
@@ -94,20 +93,19 @@ int main(int argc, char *argv[])
 	};
 	window.signal_realize().connect(resize_images);
 
-
 	//css
-	auto css_provider = Gtk::CssProvider::create();
 	try
 	{
+		auto css_provider = Gtk::CssProvider::create();
 		css_provider->load_from_path(config_dir + "theme.css");
+		auto style_context = Gtk::StyleContext::create();
+		auto screen = Gdk::Screen::get_default();
+		style_context->add_provider_for_screen(screen, css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 	}
 	catch (...)
 	{
 		throw std::runtime_error("'theme.css' file was not found.");
 	}
-	auto style_context = Gtk::StyleContext::create();
-	auto screen = Gdk::Screen::get_default();
-	style_context->add_provider_for_screen(screen, css_provider, GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
 	//spusteni programu
 	return main_application->run(window);
