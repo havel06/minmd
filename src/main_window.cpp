@@ -29,6 +29,8 @@ namespace minmd
 		{
 			this->m_inner_vbox.pack_start(*w, Gtk::PACK_SHRINK);
 		}
+		
+		this->m_inner_vbox.show_all_children();
 	}
 
 	void main_window::update_status_bar()
