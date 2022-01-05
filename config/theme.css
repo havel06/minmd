@@ -1,0 +1,69 @@
+window
+{
+	background-color: #22272e;
+	color: #adbac7;
+	font-size: 16px;
+}
+.page
+{
+	border: 1px solid #444c56;
+	border-radius: 0.375em;
+	padding-top: 1em;
+	padding-right: 2em;
+	padding-left: 2em;
+	padding-bottom: 2em;
+}
+statusbar
+{
+	border-top: 1px solid #444c56;
+}
+.heading1
+{
+	font-size: 2em;
+	font-weight: bold;
+	padding-bottom: 0.3em;
+	border-bottom: 1px solid #373e47;
+}
+.heading2
+{
+	font-size: 1.5em;
+	font-weight: bold;
+	padding-bottom: 0.3em;
+	border-bottom: 1px solid #373e47;
+}
+.heading3
+{
+	font-size: 1.25em;
+	font-weight: bold;
+}
+.heading4
+{
+	font-size: 1em;
+	font-weight: bold;
+}
+.heading5
+{
+	font-size: 0.875em;
+	font-weight: bold;
+}
+.heading6
+{
+	font-size: 0.85em;
+	font-weight: bold;
+}
+
+.quote
+{
+	color: #768390;
+	border-left: 4px solid #444c56;
+	padding-left: 1em;
+}
+
+.code
+{
+	font-family: monospace;	
+	background-color: #2d333b;
+	padding: 1em;
+	border-radius: 0.375em;
+	font-size: 0.85em;
+}

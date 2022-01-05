@@ -4,6 +4,8 @@
 #include "main_window.h"
 #include "parse.h"
 
+
+
 int main(int argc, char *argv[])
 {
 	std::string config_dir = minmd::get_config_dir();

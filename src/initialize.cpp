@@ -3,7 +3,7 @@
 #include <gtkmm.h>
 #include <iostream>
 
-static const std::string default_css = R"(
+inline const std::string default_css = R"(
 window
 {
 	background-color: #22272e;
@@ -86,7 +86,7 @@ void minmd::init_css(const std::string& t_css_path)
 	}
 	catch (...)
 	{
-		std::cerr << "Error occured when processing stylesheet. Default stylesheet will be used." << std::endl;
+		std::cerr << "Warning: Error occured when processing stylesheet. Default stylesheet will be used." << std::endl;
 		css_provider->load_from_data(default_css);
 	}
 	auto style_context = Gtk::StyleContext::create();

@@ -21,7 +21,7 @@ namespace minmd
 		[[nodiscard]] float get_value_float(const std::string& key) const;
 	private:
 		std::unordered_map<std::string, std::string> config_values = {
-			{"row_spacing", "20"},
+			{"widget_spacing", "20"},
 			{"window_width", "800"},
 			{"window_height", "600"},
 			{"indent_size", "20"},
