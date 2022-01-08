@@ -19,10 +19,10 @@ namespace minmd
 		[[nodiscard]] const std::vector<std::unique_ptr<Gtk::Widget>>& get_widgets() const;
 		[[nodiscard]] const std::vector<minmd::image_widget*>& get_images() const;
 	private:
-		void on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override;
-		void on_leave_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail) override;
-		void on_enter_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override;
-		void on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant detail) override;
+		void on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override;
+		void on_leave_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override;
+		void on_enter_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail) override;
+		void on_leave_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail) override;
 		void on_text(std::string_view text, MD_TEXTTYPE type) override;
 
 		void push_back_label(std::string_view contents, unsigned int nesting_level, std::string_view css_class);

@@ -16,7 +16,7 @@ namespace minmd
 		return this->m_images;
 	}
 
-	void parser::on_enter_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail)
+	void parser::on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail)
 	{
 		switch (type)
 		{
@@ -75,7 +75,7 @@ namespace minmd
 				break;
 		}
 	}
-	void parser::on_leave_block(MD_BLOCKTYPE type, md4cpp::detail_variant detail)
+	void parser::on_leave_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail)
 	{
 		switch (type)
 		{
@@ -133,7 +133,7 @@ namespace minmd
 		}
 	}
 
-	void parser::on_enter_span(MD_SPANTYPE type, md4cpp::detail_variant detail)
+	void parser::on_enter_span(MD_SPANTYPE type, const md4cpp::detail_variant& detail)
 	{
 		switch (type)
 		{
@@ -185,7 +185,7 @@ namespace minmd
 		}
 	}
 
-	void parser::on_leave_span(MD_SPANTYPE type, md4cpp::detail_variant /*detail*/)
+	void parser::on_leave_span(MD_SPANTYPE type, const md4cpp::detail_variant& /*detail*/)
 	{
 		switch (type)
 		{
