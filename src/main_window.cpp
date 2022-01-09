@@ -31,16 +31,6 @@ namespace minmd
 		}
 
 		this->m_inner_vbox.show_all_children();
-
-		auto resize_images = [&t_images, this]()
-		{
-			int desired_width = this->current_config.get_value_int("window_width");
-			for (auto* i : t_images)	
-			{
-				i->resize_to_fit(desired_width);
-			}
-		};
-		this->signal_realize().connect(resize_images);
 	}
 
 	void main_window::update_status_bar()

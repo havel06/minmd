@@ -3,8 +3,21 @@
 
 namespace minmd
 {
-	image_widget::image_widget(const std::string& path) : Gtk::Image(path)
+	image_widget::image_widget(const std::string& path)
 	{
+		auto pixbuf = Gdk::Pixbuf::create_from_file(path);
+
+		int width = this->get_config().get_value_int("window_width");
+		if (pixbuf->get_width() > width)
+		{
+			auto new_pixbuf = Gdk::Pixbuf::create_from_file(path, static_cast<int>(width), -1, true);
+			this->set(new_pixbuf);
+		}
+		else
+		{
+			this->set(pixbuf);
+		}
+
 		this->m_path = path;	
 	}
 
@@ -13,12 +26,18 @@ namespace minmd
 		return this->m_path;
 	}
 
-	void image_widget::resize_to_fit(unsigned int t_width)
+
+	const minmd::config*image_widget::m_config = nullptr;
+
+	void image_widget::set_config(const minmd::config& t_config)
 	{
-		if (this->get_allocated_width() > t_width)
-		{
-			auto new_pixbuf = Gdk::Pixbuf::create_from_file(this->get_path(), static_cast<int>(t_width), -1, true);
-			this->set(new_pixbuf);
-		}
+		image_widget::m_config = &t_config;
 	}
+
+
+	const minmd::config& image_widget::get_config() const
+	{
+		return *image_widget::m_config;
+	}
+
 } //namespace minmd

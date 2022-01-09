@@ -10,8 +10,10 @@ namespace minmd
 		public:
 			explicit image_widget(const std::string& path);
 			[[nodiscard]] const std::string& get_path() const;
-			void resize_to_fit(unsigned int width);
+			static void set_config(const minmd::config& t_config);
+			const minmd::config& get_config() const;
 		private:
 			std::string m_path;
+			static const minmd::config* m_config;
 	};
 } //namespace minmd

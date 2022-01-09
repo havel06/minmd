@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 
 	minmd::config current_config = minmd::init_config(config_dir + "minmd.conf");
 	minmd::main_label::set_config(current_config);
+	minmd::image_widget::set_config(current_config);
 
 	int fake_argc = 1;
 	auto main_application = Gtk::Application::create(fake_argc, argv, "minmd.main");

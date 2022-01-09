@@ -31,6 +31,7 @@ namespace minmd
 			case MD_BLOCK_TD:  //todo - maybe
 			case MD_BLOCK_P: 
 			case MD_BLOCK_H:
+				break;
 
 			case MD_BLOCK_CODE:
 				this->m_is_verbatim = true;
@@ -88,6 +89,7 @@ namespace minmd
 			case MD_BLOCK_TR: //todo - maybe
 			case MD_BLOCK_TH: //todo - maybe
 			case MD_BLOCK_TD: //todo - maybe
+				break;
 
 			case MD_BLOCK_P:
 				if (this->m_nesting_level != 0)
@@ -158,7 +160,8 @@ namespace minmd
 				break;
 			case MD_SPAN_LATEXMATH: //todo - maybe
 			case MD_SPAN_LATEXMATH_DISPLAY: //todo - maybe
-			case MD_SPAN_WIKILINK: break; // todo - maybe
+			case MD_SPAN_WIKILINK:
+				break; // todo - maybe
 			case MD_SPAN_STRONG:
 				this->m_buffer += "<b>";
 				break;
