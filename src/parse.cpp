@@ -11,10 +11,6 @@ namespace minmd
 		return this->m_widgets;
 	}
 
-	const std::vector<minmd::image_widget*>& parser::get_images() const
-	{
-		return this->m_images;
-	}
 
 	void parser::on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail)
 	{
@@ -242,7 +238,6 @@ namespace minmd
 	void parser::push_back_image(std::string_view source)
 	{
 		auto widget = std::make_unique<image_widget>(std::string(source));
-		this->m_images.push_back(widget.get());
 		this->m_widgets.push_back(std::move(widget));
 	}
 } //namespace minmd

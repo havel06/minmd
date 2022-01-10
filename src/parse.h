@@ -17,7 +17,6 @@ namespace minmd
 	public:
 		using md4cpp::parser::parser;
 		[[nodiscard]] const std::vector<std::unique_ptr<Gtk::Widget>>& get_widgets() const;
-		[[nodiscard]] const std::vector<minmd::image_widget*>& get_images() const;
 	private:
 		void on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override;
 		void on_leave_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override;
@@ -29,7 +28,6 @@ namespace minmd
 		void push_back_image(std::string_view source);
 		
 		std::vector<std::unique_ptr<Gtk::Widget>> m_widgets{};
-		std::vector<minmd::image_widget*> m_images{};
 		std::string m_buffer{};
 
 		bool m_is_verbatim = false; //whether newline chars should be displayed

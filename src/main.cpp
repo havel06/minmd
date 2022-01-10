@@ -22,11 +22,10 @@ int main(int argc, char *argv[])
 	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
 	main_parser.parse(input_text);
 	const auto& widgets = main_parser.get_widgets();
-	const auto& images = main_parser.get_images();
 
 	//vytvoreni okna
 	minmd::main_window window(current_config);
-	window.display_widgets(widgets, images);
+	window.display_widgets(widgets);
 
 	minmd::init_css(config_dir + "theme.css");
 

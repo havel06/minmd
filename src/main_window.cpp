@@ -23,7 +23,7 @@ namespace minmd
 		this->show_all_children();
 	}
 
-	void main_window::display_widgets(widget_vector t_widgets, image_vector t_images)
+	void main_window::display_widgets(widget_vector t_widgets)
 	{
 		for (const auto& w : t_widgets)
 		{

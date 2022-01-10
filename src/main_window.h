@@ -7,7 +7,6 @@
 #include <gtkmm-3.0/gtkmm.h>
 
 using widget_vector = const std::vector<std::unique_ptr<Gtk::Widget>>&;
-using image_vector = const std::vector<minmd::image_widget*>&;
 
 namespace minmd
 {
@@ -15,7 +14,7 @@ namespace minmd
 	{
 		public:
 			explicit main_window(const minmd::config& conf);
-			void display_widgets(widget_vector t_widgets, image_vector t_images);
+			void display_widgets(widget_vector t_widgets);
 
 		private:
 			Gtk::Box m_outer_vbox;
