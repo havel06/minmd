@@ -52,7 +52,7 @@ These are the parameters you can change inside `minmd.conf`:
 
 ## Future goals
 
-- Update contents when file is modified
+- Update contents when file is modified (for future vim integration)
 - Custom styling of inline code (possible after switching Gtk::Label to Gtk::TextView)
 - Tasks
 - Tables
