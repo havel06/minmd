@@ -104,10 +104,7 @@ std::string minmd::get_config_dir()
 	{
 		return std::string(std::getenv("HOME")) + "/.config/minmd/";
 	}
-	else
-	{
-		return std::string(config_dir_p) + "/minmd/";
-	}
+	return std::string(config_dir_p) + "/minmd/";
 }
 
 

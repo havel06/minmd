@@ -13,9 +13,11 @@ namespace minmd
 			main_label(std::string_view markup, unsigned int indent, std::string_view css_class);
 			main_label(const main_label& other) = delete;
 			main_label& operator=(const main_label& other) = delete;
-			~main_label() = default;
+			main_label(main_label&& other) = delete;
+			main_label& operator=(main_label&& other) = delete;
+			~main_label() override = default;
 
-			const minmd::config& get_config() const;
+			static const minmd::config& get_config();
 			static void set_config(const minmd::config& t_config);
 
 		private:

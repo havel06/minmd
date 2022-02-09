@@ -5,8 +5,8 @@
 #include "image_widget.h"
 
 #include <gtkmm-3.0/gtkmm.h>
-#include <memory>
 #include <md4c.h>
+#include <memory>
 #include <string>
 #include <vector>
 

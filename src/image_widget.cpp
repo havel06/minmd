@@ -35,7 +35,7 @@ namespace minmd
 	}
 
 
-	const minmd::config& image_widget::get_config() const
+	const minmd::config& image_widget::get_config()
 	{
 		return *image_widget::m_config;
 	}

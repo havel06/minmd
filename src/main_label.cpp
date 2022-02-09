@@ -30,7 +30,7 @@ void minmd::main_label::set_config(const minmd::config& t_config)
 	main_label::m_config = &t_config;
 }
 
-const minmd::config& minmd::main_label::get_config() const
+const minmd::config& minmd::main_label::get_config()
 {
 	return *minmd::main_label::m_config;
 }
