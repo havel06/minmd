@@ -32,15 +32,27 @@ int main(int argc, char *argv[])
 	int fake_argc = 1;
 	auto main_application = Gtk::Application::create(fake_argc, argv, "minmd.main");
 
-	std::string input_text = minmd::get_input(argc, argv);
+	auto [input_text, path] = minmd::get_input(argc, argv);
 
-	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
-	main_parser.parse(input_text);
-	const auto& widgets = main_parser.get_widgets();
-
-	//vytvoreni okna
 	minmd::main_window window(current_config);
-	window.display_widgets(widgets);
+	minmd::parser main_parser(MD_FLAG_STRIKETHROUGH);
+
+	auto on_file_modify = [&main_parser, &window](const std::string& t_input ){
+		main_parser.clear_widgets();
+		main_parser.parse(t_input);
+		const auto& widgets = main_parser.get_widgets();
+		window.display_widgets(widgets);
+	};
+
+	// first creation of widgets
+	on_file_modify(input_text);
+
+	if (path.has_value())
+	{
+		window.set_file_watcher(*path, [path = path, on_file_modify](){
+			on_file_modify(minmd::parse_file(*path));
+		});
+	}
 
 	minmd::init_css(config_dir + "theme.css");
 

@@ -144,9 +144,10 @@ minmd::config minmd::init_config(const std::string& t_path)
 
 
 
-std::string minmd::get_input(int argc, char* argv[])
+minmd::file_input minmd::get_input(int argc, char* argv[])
 {
 	std::string input_text{};
+	std::optional<std::string> path{};
 
 	if (argc < 2)
 	{
@@ -162,6 +163,7 @@ std::string minmd::get_input(int argc, char* argv[])
 		//nacteni ze souboru
 		try
 		{
+			path.emplace(argv[1]);
 			input_text = minmd::parse_file(argv[1]);
 		}
 		catch (std::runtime_error& e)
@@ -170,5 +172,5 @@ std::string minmd::get_input(int argc, char* argv[])
 			abort();
 		};
 	}
-	return input_text;
+	return {input_text, path};
 }

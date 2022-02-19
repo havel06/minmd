@@ -33,6 +33,7 @@ namespace minmd
 	public:
 		using md4cpp::parser::parser;
 		[[nodiscard]] const std::vector<std::unique_ptr<Gtk::Widget>>& get_widgets() const;
+		void clear_widgets();
 	private:
 		void on_enter_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override;
 		void on_leave_block(MD_BLOCKTYPE type, const md4cpp::detail_variant& detail) override;

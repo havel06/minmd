@@ -16,6 +16,7 @@
 
 #include "main_window.h"
 #include <cmath>
+#include <sys/inotify.h>
 #include <iostream>
 
 namespace minmd
@@ -41,6 +42,14 @@ namespace minmd
 
 	void main_window::display_widgets(widget_vector t_widgets)
 	{
+		//clear all widgets
+		auto vbox_children = this->m_inner_vbox.get_children();
+		for (auto w : vbox_children)
+		{
+			this->m_inner_vbox.remove(*w);
+		}
+
+		//insert new
 		for (const auto& w : t_widgets)
 		{
 			this->m_inner_vbox.pack_start(*w, Gtk::PACK_SHRINK);
@@ -121,4 +130,37 @@ namespace minmd
 				return Gtk::Window::on_key_press_event(event);
 		}
 	}
+
+
+
+	void main_window::set_file_watcher(const std::string& t_path, std::function<void()> t_callback)
+	{
+		//inotify
+		auto file_descriptor = inotify_init1(IN_NONBLOCK);
+		inotify_add_watch(file_descriptor, t_path.c_str(), IN_MODIFY);
+
+		//timeout
+		Glib::signal_timeout().connect([t_callback, this, file_descriptor](){
+			if (file_is_modified(file_descriptor))
+			{
+				t_callback();
+			}
+			return true;
+		}, 1000);
+	}
+
+
+
+	constexpr static const std::size_t max_path_length = 512;
+	constexpr static const std::size_t event_size = sizeof(inotify_event);
+	constexpr static const std::size_t buffer_length = event_size + max_path_length;
+
+	bool main_window::file_is_modified(int t_file_descriptor)
+	{
+		char buffer[buffer_length];
+		auto num_bytes = read(t_file_descriptor, buffer, buffer_length);
+		
+		return num_bytes != -1;
+	}	
+
 } //namespace minmd

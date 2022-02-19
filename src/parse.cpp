@@ -256,4 +256,12 @@ namespace minmd
 		auto widget = std::make_unique<image_widget>(std::string(source));
 		this->m_widgets.push_back(std::move(widget));
 	}
+
+
+
+	void parser::clear_widgets()
+	{
+		this->m_widgets.clear();
+	}
+
 } //namespace minmd
