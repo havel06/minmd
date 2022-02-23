@@ -31,7 +31,6 @@ namespace minmd
 		public:
 			explicit main_window(const minmd::config& conf);
 			void display_widgets(widget_vector t_widgets);
-			void set_file_watcher(const std::string& t_path, std::function<void()> t_callback);
 
 		private:
 			Gtk::Box m_outer_vbox;
@@ -41,7 +40,6 @@ namespace minmd
 
 			const minmd::config current_config;
 
-			bool file_is_modified(int t_file_descriptor);
 			void update_status_bar();
 			bool on_key_press_event(GdkEventKey* event) override;
 			bool on_scroll_event(GdkEventScroll* event) override;

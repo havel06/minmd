@@ -130,37 +130,4 @@ namespace minmd
 				return Gtk::Window::on_key_press_event(event);
 		}
 	}
-
-
-
-	void main_window::set_file_watcher(const std::string& t_path, std::function<void()> t_callback)
-	{
-		//inotify
-		auto file_descriptor = inotify_init1(IN_NONBLOCK);
-		inotify_add_watch(file_descriptor, t_path.c_str(), IN_MODIFY);
-
-		//timeout
-		Glib::signal_timeout().connect([t_callback, this, file_descriptor](){
-			if (file_is_modified(file_descriptor))
-			{
-				t_callback();
-			}
-			return true;
-		}, 1000);
-	}
-
-
-
-	constexpr static const std::size_t max_path_length = 512;
-	constexpr static const std::size_t event_size = sizeof(inotify_event);
-	constexpr static const std::size_t buffer_length = event_size + max_path_length;
-
-	bool main_window::file_is_modified(int t_file_descriptor)
-	{
-		char buffer[buffer_length];
-		auto num_bytes = read(t_file_descriptor, buffer, buffer_length);
-		
-		return num_bytes != -1;
-	}	
-
 } //namespace minmd

@@ -15,6 +15,7 @@
  */
 
 #include "file_handling.h"
+#include "file_watcher.h"
 #include "initialize.h"
 #include "main_label.h"
 #include "main_window.h"
@@ -47,9 +48,11 @@ int main(int argc, char *argv[])
 	// first creation of widgets
 	on_file_modify(input_text);
 
+	std::unique_ptr<minmd::file_watcher> f_watcher;
+
 	if (path.has_value())
 	{
-		window.set_file_watcher(*path, [path = path, on_file_modify](){
+		f_watcher = std::make_unique<minmd::file_watcher>(*path, [path = path, on_file_modify](){
 			on_file_modify(minmd::parse_file(*path));
 		});
 	}
