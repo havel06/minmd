@@ -17,7 +17,7 @@ minmd::file_watcher::file_watcher(const std::string& t_path, std::function<void(
 		{
 			t_callback();
 		}
-		return true;
+		return (this != nullptr);
 	}, 1000);
 }
 
